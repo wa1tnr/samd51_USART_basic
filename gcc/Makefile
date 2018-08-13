@@ -145,6 +145,7 @@ vpath %.S ../
 all: $(SUB_DIRS) $(OUTPUT_FILE_PATH)
 
 # Linker target
+# -T"../gcc/gcc/samd51j19a_flash.ld" \
 
 $(OUTPUT_FILE_PATH): $(OBJS)
 	@echo Building target: $@
@@ -152,7 +153,7 @@ $(OUTPUT_FILE_PATH): $(OBJS)
 	$(QUOTE)arm-none-eabi-gcc$(QUOTE) -o $(OUTPUT_FILE_NAME).elf $(OBJS_AS_ARGS) -Wl,--start-group -lm -Wl,--end-group -mthumb \
 -Wl,-Map="$(OUTPUT_FILE_NAME).map" --specs=nano.specs -Wl,--gc-sections -mcpu=cortex-m4 \
  \
--T"../gcc/gcc/samd51j19a_flash.ld" \
+-T"../gcc/gcc/samd51j19a_flash_with_bootloader.ld" \
 -L"../gcc/gcc"
 	@echo Finished building target: $@
 
@@ -208,6 +209,37 @@ endif
 
 $(SUB_DIRS):
 	$(MK_DIR) "$@"
+
+arc:
+	# running target 'make arc' now
+	cp   ./AtmelStart.bin    _stored/AtmelStart.bin
+	cp   ./AtmelStart.eep    _stored/AtmelStart.eep
+	cp   ./AtmelStart.elf    _stored/AtmelStart.elf
+	cp   ./AtmelStart.hex    _stored/AtmelStart.hex
+	cp   ./AtmelStart.lss    _stored/AtmelStart.lss
+	cp   ./AtmelStart.map    _stored/AtmelStart.map
+
+# git checkout -- AtmelStart.bin
+
+checkout:
+	# running target 'make checkout' now
+	@git    checkout    --     _stored/AtmelStart.bin
+	@git    checkout    --     _stored/AtmelStart.elf
+	@git    checkout    --     _stored/AtmelStart.hex
+	@git    checkout    --     _stored/AtmelStart.lss
+	@git    checkout    --     _stored/AtmelStart.map
+
+#       @git    checkout    --     AtmelStart.eep
+
+# install: arc checkout
+install: arc
+	# running target 'make install' now
+	./scripts/_bossac_local.sh ./AtmelStart.bin
+	# use 'make checkout' to tell git no changes to AtmelStart.*
+
+
+# for clean target:
+# rm -f ./_stored/AtmelStart.???
 
 clean:
 	rm -f $(OBJS_AS_ARGS)
