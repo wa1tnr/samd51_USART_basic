@@ -81,7 +81,7 @@
  * \brief SERCOM5's Core Clock frequency
  */
 #ifndef CONF_GCLK_SERCOM5_CORE_FREQUENCY
-#define CONF_GCLK_SERCOM5_CORE_FREQUENCY 0
+#define CONF_GCLK_SERCOM5_CORE_FREQUENCY 48000000
 #endif
 
 /**
