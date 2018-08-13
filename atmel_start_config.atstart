@@ -809,8 +809,8 @@ drivers:
     variant: null
     clocks:
       domain_group: null
-  USART_5:
-    user_label: USART_5
+  USART_0:
+    user_label: USART_0
     definition: Atmel:SAMD51_Drivers:0.0.1::SAMD51J19A-AF::SERCOM5::driver_config_definition::UART::HAL:Driver:USART.Sync
     functionality: USART
     api: HAL:Driver:USART_Sync
@@ -828,7 +828,7 @@ drivers:
       usart_arch_sampa: 7-8-9 (3-4-5 8-bit over-sampling)
       usart_arch_sampr: 16x arithmetic
       usart_arch_sfde: false
-      usart_baud_rate: 9600
+      usart_baud_rate: 38400
       usart_character_size: 8 bits
       usart_parity: No parity
       usart_rx_enable: true
