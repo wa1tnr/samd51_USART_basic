@@ -23,11 +23,11 @@ extern "C" {
 
 #include <hal_usart_sync.h>
 
-extern struct usart_sync_descriptor USART_5;
+extern struct usart_sync_descriptor USART_0;
 
-void USART_5_PORT_init(void);
-void USART_5_CLOCK_init(void);
-void USART_5_init(void);
+void USART_0_PORT_init(void);
+void USART_0_CLOCK_init(void);
+void USART_0_init(void);
 
 /**
  * \brief Perform system initialization, initialize pins and clocks for
