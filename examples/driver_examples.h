@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-void USART_5_example(void);
+void USART_0_example(void);
 
 #ifdef __cplusplus
 }
