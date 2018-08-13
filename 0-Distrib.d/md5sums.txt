@@ -1,0 +1,2 @@
+864b158d7049cab1229e21df499c72b4  samd51_usart_13_aug_a.atzip
+38c58e2e5f4f09c8bbda67a72464a2a1  samd51_usart_13_aug_b.atzip
