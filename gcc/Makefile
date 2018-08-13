@@ -60,7 +60,6 @@ hpl/mclk/hpl_mclk.o \
 hpl/ramecc/hpl_ramecc.o \
 hal/src/hal_init.o \
 gcc/gcc/startup_samd51.o \
-main.o \
 hpl/osc32kctrl/hpl_osc32kctrl.o \
 examples/driver_examples.o \
 driver_init.o \
@@ -69,7 +68,9 @@ hal/src/hal_gpio.o \
 hal/utils/src/utils_event.o \
 hal/src/hal_sleep.o \
 atmel_start.o \
-hal/src/hal_atomic.o
+hal/src/hal_atomic.o \
+pins.o \
+main.o
 
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
@@ -89,7 +90,6 @@ OBJS_AS_ARGS +=  \
 "hpl/ramecc/hpl_ramecc.o" \
 "hal/src/hal_init.o" \
 "gcc/gcc/startup_samd51.o" \
-"main.o" \
 "hpl/osc32kctrl/hpl_osc32kctrl.o" \
 "examples/driver_examples.o" \
 "driver_init.o" \
@@ -98,7 +98,9 @@ OBJS_AS_ARGS +=  \
 "hal/utils/src/utils_event.o" \
 "hal/src/hal_sleep.o" \
 "atmel_start.o" \
-"hal/src/hal_atomic.o"
+"hal/src/hal_atomic.o" \
+"pins.o" \
+"main.o"
 
 # List the dependency files
 DEPS := $(OBJS:%.o=%.d)
@@ -123,14 +125,15 @@ DEPS_AS_ARGS +=  \
 "hpl/mclk/hpl_mclk.d" \
 "driver_init.d" \
 "hpl/osc32kctrl/hpl_osc32kctrl.d" \
-"main.d" \
 "examples/driver_examples.d" \
 "hal/src/hal_sleep.d" \
 "hpl/sercom/hpl_sercom.d" \
 "hal/utils/src/utils_event.d" \
 "hal/src/hal_atomic.d" \
 "hpl/oscctrl/hpl_oscctrl.d" \
-"atmel_start.d"
+"atmel_start.d" \
+"pins.d" \
+"main.d"
 
 OUTPUT_FILE_NAME :=AtmelStart
 QUOTE := "
