@@ -17,10 +17,33 @@ void blink_two(void) {
     }
 }
 
+
+void ldelays(void) {
+    for (int ie=7; ie >0; ie--) {
+        delays();
+    }
+}
+
 void blink_awhile(void) {
-    for (int iter=22; iter >0; iter--) {
+
+    for (int iter=17; iter >0; iter--) {
         blink_two();
     }
+
+    ldelays();
+
+    for (int iter=3 ; iter >0; iter--) {
+        blink_two();
+    }
+
+    ldelays();
+
+    for (int iter=3 ; iter >0; iter--) {
+        blink_two();
+    }
+
+    ldelays();
+
 }
 
 int main(void)
@@ -32,7 +55,7 @@ int main(void)
 
     blink_awhile(); // is the clock running?
 
-    USART_5_example();
+    USART_0_example();
     /* Replace with your application code */
 
     while (1) {
