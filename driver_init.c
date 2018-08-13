@@ -38,7 +38,7 @@ void USART_5_init(void)
 
 void system_init(void)
 {
-	init_mcu();
+	// init_mcu();  // local mod ainsu 19:04 UTC 13 Aug
 
 	// GPIO on PA21
 
