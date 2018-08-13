@@ -11,13 +11,13 @@
 #include "utils.h"
 
 /**
- * Example of using USART_5 to write "Hello World" using the IO abstraction.
+ * Example of using USART_0 to write "Hello World" using the IO abstraction.
  */
-void USART_5_example(void)
+void USART_0_example(void)
 {
 	struct io_descriptor *io;
-	usart_sync_get_io_descriptor(&USART_5, &io);
-	usart_sync_enable(&USART_5);
+	usart_sync_get_io_descriptor(&USART_0, &io);
+	usart_sync_enable(&USART_0);
 
 	io_write(io, (uint8_t *)"Hello World!", 12);
 }
