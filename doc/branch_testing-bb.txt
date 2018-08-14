@@ -1,0 +1,13 @@
+Tue Aug 14 11:48:30 UTC 2018
+
+Stable.  Works well to put out a message via
+the UART TX pin.
+
+The RX pin is largely ignored (it is ready to
+do something interesting).
+
+D11 is ready to signal the developer for mixed duties.
+D13 is ready (and operational) to operate the onboard
+LED of Feather M4 Express.
+
+NVIC readiness is unknown.
