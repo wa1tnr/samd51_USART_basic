@@ -43,10 +43,14 @@ void USART_0_example(void)
         usart_sync_enbl();
 
 	io_write(io, (uint8_t *)
-            "Program is configured for 38400 bps speed.\r\n\r\n",  46);
+            "Program is configured for 38400 bps speed.\r\n\r\n",        46);
+	io_write(io, (uint8_t *)
+            "Target MCU board is Adafruit Feather M4 Express.\r\n\r\n",  52);
+	io_write(io, (uint8_t *)
+            "UART pins TX and RX used with CP2104 bridge.\r\n\r\n",      48);
 /*
              12345678901234567890123456789012345678901234567890
-                     10        20        30        40
+                     10        20        30        40        50
 */
 
 	io_write(io, (uint8_t *)  "Hello World!\r\n",  14);
