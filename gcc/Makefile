@@ -70,6 +70,8 @@ hal/src/hal_sleep.o \
 atmel_start.o \
 hal/src/hal_atomic.o \
 pins.o \
+hal/src/hal_usart_async.o \
+hal/utils/src/utils_ringbuffer.o \
 main.o
 
 OBJS_AS_ARGS +=  \
@@ -100,6 +102,8 @@ OBJS_AS_ARGS +=  \
 "atmel_start.o" \
 "hal/src/hal_atomic.o" \
 "pins.o" \
+"hal/src/hal_usart_async.o" \
+"hal/utils/src/utils_ringbuffer.o" \
 "main.o"
 
 # List the dependency files
@@ -133,6 +137,8 @@ DEPS_AS_ARGS +=  \
 "hpl/oscctrl/hpl_oscctrl.d" \
 "atmel_start.d" \
 "pins.d" \
+"hal/src/hal_usart_async.d" \
+"hal/utils/src/utils_ringbuffer.d" \
 "main.d"
 
 OUTPUT_FILE_NAME :=AtmelStart
