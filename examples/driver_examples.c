@@ -42,6 +42,13 @@ void USART_0_example(void)
 	// usart_sync_enable(&USART_0);
         usart_sync_enbl();
 
+	io_write(io, (uint8_t *)
+            "Program is configured for 38400 bps speed.\r\n\r\n",  46);
+/*
+             12345678901234567890123456789012345678901234567890
+                     10        20        30        40
+*/
+
 	io_write(io, (uint8_t *)  "Hello World!\r\n",  14);
 	io_write(io, (uint8_t *)"  type something: ",  18);
         fg_yellow(); // color it!
