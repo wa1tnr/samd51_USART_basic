@@ -1,0 +1,18 @@
+Tue Aug 14 13:01:11 UTC 2018
+
+On branch testing-ff-cp-exp-
+
+  * config/peripheral_clk_config.h
+
+This is a copy of Adafruit CircuitPython's variant on this
+important file (well, one of them anyway). The file has the
+markings to say just where it's from.
+
+Works - produces the Hello World message, so it's provisionally
+good and it bumps CPU freq to 120 MHz in the bargain.
+
+Hopefully compatible with any code found in CircuitPython that
+furthers the goal of a working UART (SERCOM5) RX pin (to gain
+keystrokes from the outside world, which is the primary focus
+of this investigation).
+
