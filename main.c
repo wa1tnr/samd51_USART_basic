@@ -26,10 +26,11 @@ void ldelays(void) {
 
 void blink_awhile(void) {
 
-    for (int iter=17; iter >0; iter--) {
+    for (int iter=5; iter >0; iter--) {
         blink_two();
     }
 
+/*
     ldelays();
 
     for (int iter=3 ; iter >0; iter--) {
@@ -43,6 +44,7 @@ void blink_awhile(void) {
     }
 
     ldelays();
+*/
 
 }
 
