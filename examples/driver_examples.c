@@ -9,7 +9,7 @@
 #include "utils.h"
 
 /* Terminal Input Buffer for interpreter */
-const uint8_t maxtib = 16;
+#define maxtib 16
 
 struct io_descriptor *io;
 
@@ -31,12 +31,19 @@ void fg_yellow(void) { // foreground yellow
 /**
  * Example of using USART_0 to write "Hello World" using the IO abstraction.
  */
+
+char tib[maxtib];
+uint8_t *buf;
+
+void filter(void) {
+    if ((uint8_t) *buf == 8) { // Control H
+        io_write(io, (uint8_t *) "\010",  1);
+        io_write(io, (uint8_t *) " ",  1);
+    }
+}
+
 void USART_0_example(void) {
-    char tib[maxtib];
-    // struct io_descriptor *io;
-    // usart_sync_get_io_descriptor(&USART_0, &io);
     usart_sync_get_desc();
-    // usart_sync_enable(&USART_0);
     usart_sync_enbl();
 
     io_write(io, (uint8_t *)
@@ -58,6 +65,8 @@ void USART_0_example(void) {
 
     while(-1) { // endless loop, read one char, write one char (echo)
         io_read(io,  (uint8_t *)tib, 1); // 1  is length
+        buf = (uint8_t *)tib;
+        filter();
         io_write(io, (uint8_t *)tib, 1); // 1  is also length
     }
 }
