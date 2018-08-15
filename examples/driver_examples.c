@@ -106,11 +106,17 @@ void filter(void) {
     }
 }
 
+void _cr(void) {
+    io_write(io, (uint8_t *) "\r\n",         2);
+}
+
 void USART_0_example(void) {
     usart_sync_get_desc();
     usart_sync_enbl();
 
-    io_write(io, (uint8_t *) "\r\n",         1);
+    _cr();
+    _cr();
+
     io_write(io, (uint8_t *)
         "Program is configured for 38400 bps speed.\r\n\r\n",        46);
     io_write(io, (uint8_t *)
@@ -125,16 +131,19 @@ void USART_0_example(void) {
     */
 
     bg_blue();
+    fg_white();
     bg_red();
-    io_write(io, (uint8_t *)  "Hello World!  ",  14);
+    io_write(io, (uint8_t *)  "  Hello World!  ",  16);
+    color_reset();
+
     bg_black();
     // io_write(io, (uint8_t *)  "\r\n",  2);
     io_write(io, (uint8_t *)"    type something: ",  20);
     bg_black();
 
-    fg_yellow(); // color it!
 
-    fg_white();
+ // fg_white();
+    fg_yellow(); // color it!
 
     while(-1) { // endless loop, read one char, write one char (echo)
         io_read(io,  (uint8_t *)tib, 1); // 1  is length
