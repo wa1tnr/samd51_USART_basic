@@ -36,9 +36,20 @@ char tib[maxtib];
 uint8_t *buf;
 
 void filter(void) {
+
+    /* stanza -- control H */
     if ((uint8_t) *buf == 8) { // Control H
         io_write(io, (uint8_t *) "\010",  1);
         io_write(io, (uint8_t *) " ",  1);
+        return;
+    }
+
+    /* stanza -- rubout */
+    if ((uint8_t) *buf == 127) { // Control H
+        io_write(io, (uint8_t *) "\010",  1);
+        io_write(io, (uint8_t *) " ",  1);
+        io_write(io, (uint8_t *) "\010",  1); // rubout needs to travel to the left here
+        return;
     }
 }
 
