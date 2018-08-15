@@ -51,6 +51,14 @@ void filter(void) {
         io_write(io, (uint8_t *) "\010",  1); // rubout needs to travel to the left here
         return;
     }
+
+    /* stanza -- CR */
+    if ((uint8_t) *buf == 13) { // CR or 0x0d
+        io_write(io, (uint8_t *) " ok",  3);
+        io_write(io, (uint8_t *) "\015",  1); // 0x0d
+        io_write(io, (uint8_t *) "\012",  1); // 0x0a // your terminal may want differently
+        return;
+    }
 }
 
 void USART_0_example(void) {
