@@ -40,6 +40,11 @@ void system_init(void)
 {
 	// init_mcu();  // local mod ainsu 19:04 UTC 13 Aug
 
+        // init_mcu() is problematic.
+
+        // Please see:
+        // wa1tnr/samd51_USART_basic/hpl/core/hpl_init.c
+
 	// GPIO on PA21
 
 	// Set pin direction to output
