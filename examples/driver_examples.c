@@ -7,6 +7,7 @@
 #include "driver_examples.h"
 #include "driver_init.h"
 #include "utils.h"
+#include "warm.h"
 
 /* Terminal Input Buffer for interpreter */
 #define maxtib 16
@@ -21,8 +22,50 @@ void usart_sync_enbl(void) {
     usart_sync_enable(&USART_0);
 }
 
+void bg_black(void)   { // background black
+    io_write(io, (uint8_t *)"\033\133", 2); // ESC [
+    io_write(io, (uint8_t *)"\064\060", 2); // 40 - blue black
+    io_write(io, (uint8_t *)"m", 1);        // for the stanza
+}
+
+void bg_red(void)    { // background red
+    io_write(io, (uint8_t *)"\033\133", 2); // ESC [
+    io_write(io, (uint8_t *)"\064\061", 2); // 41 - red bg
+    io_write(io, (uint8_t *)"m", 1);        // for the stanza
+}
+
+void bg_blue(void)   { // background blue
+    io_write(io, (uint8_t *)"\033\133", 2); // ESC [
+    io_write(io, (uint8_t *)"\064\064", 2); // 44 - blue bg
+    io_write(io, (uint8_t *)"m", 1);        // for the stanza
+}
+
+void color_reset(void) {  // reset color
+    io_write(io, (uint8_t *)"\033\133", 2); // ESC [
+
+    io_write(io, (uint8_t *)"\060", 1);     // 0
+ // io_write(io, (uint8_t *)"\073", 1);     // ;  semicolon
+
+    io_write(io, (uint8_t *)"m", 1);        // for the stanza
+/*
+    io_write(io, (uint8_t *)"\060\056", 2); // 0z  trying for semicolon
+
+    io_write(io, (uint8_t *)"\063\067", 2); // 37 - white fg
+    io_write(io, (uint8_t *)"m", 1);        // for the stanza
+*/
+}
+
+void fg_white(void) {
+    io_write(io, (uint8_t *)"\033\133", 2); // ESC [
+    io_write(io, (uint8_t *)"\060", 1);     // 0
+    io_write(io, (uint8_t *)"\073", 1);     // ;  semicolon
+    io_write(io, (uint8_t *)"\061", 1);     // 1
+    io_write(io, (uint8_t *)"\073", 1);     // ;  semicolon
+    io_write(io, (uint8_t *)"\063\067", 2); // 37 - white  fg
+    io_write(io, (uint8_t *)"m", 1);        // for the stanza
+}
+
 void fg_yellow(void) { // foreground yellow
-    io_write(io, (uint8_t *)"            ", 12);
     io_write(io, (uint8_t *)"\033\133", 2); // ESC [
     io_write(io, (uint8_t *)"\063\063", 2); // 33 - yellow fg
     io_write(io, (uint8_t *)"m", 1);        // for the stanza
@@ -34,66 +77,6 @@ void fg_yellow(void) { // foreground yellow
 
 char tib[maxtib];
 uint8_t *buf;
-
-int state_warm = 0;
-
-void _warm(void) { // reboot the machine
-    io_write(io, (uint8_t *)"  WARM BOOT \r\n", 14);
-    NVIC_SystemReset();      // processor software reset
-}
-
-void capture_warm(void) { // trap keystrokes to build a command
-
-/*
-    if (state_warm == -2) {
-        state_warm = -1; // demote double-penalty
-        return; // empty-handed - skip a turn
-    }
-
-*/
-
-    if ( (state_warm ==  0) && ((uint8_t) *buf != 0x77) ) { // ! 'w'
-        state_warm = -1;
-        return;
-    }
-
-
-    if ( (state_warm == 0) && ((uint8_t) *buf == 0x77) ) { // 'w'
-        // io_write(io, (uint8_t *) "!w!",  3);
-        state_warm = 0x77; // first level gained
-        return;
-    }
-
-
-    if ( (state_warm == 0x77) && ((uint8_t) *buf == 0x61) ) { // "wa..."
-        // io_write(io, (uint8_t *) "!a!",  3);
-        state_warm = 0x61; // second level gained
-        return;
-    }
-
-
-    if ( (state_warm == 0x61) && ((uint8_t) *buf == 0x72) ) {  // "war.."
-        // io_write(io, (uint8_t *) "!r!",  3);
-        state_warm = 0x72; // third level gained
-        return;
-    }
-
-
-    if ( (state_warm == 0x72) && ((uint8_t) *buf == 0x6d) ) {  // "warm."
-        io_write(io, (uint8_t *) "  !warm! ",  9);
-        state_warm = 0x6d; // fourth level gained
-        return;
-    }
-
-    if ( (state_warm == 0x6d) && ((uint8_t) *buf == 0x0d) ) {  // "warmCR"
-        io_write(io, (uint8_t *) " !reboot! ", 10);
-        state_warm = 0xfd; // fifth level gained
-        _warm();
-        return; // shouldn't reach this
-    }
-    // if ( (state_warm == -2) || (state_warm == -1)) return; // preserve penalty
-    state_warm = 0; // sieve fall-through
-}
 
 void filter(void) {
 
@@ -127,22 +110,31 @@ void USART_0_example(void) {
     usart_sync_get_desc();
     usart_sync_enbl();
 
+    io_write(io, (uint8_t *) "\r\n",         1);
     io_write(io, (uint8_t *)
         "Program is configured for 38400 bps speed.\r\n\r\n",        46);
     io_write(io, (uint8_t *)
         "Target MCU board is Adafruit Feather M4 Express.\r\n\r\n",  52);
+
+    color_reset();
     io_write(io, (uint8_t *)
         "UART pins TX and RX used with CP2104 bridge.\r\n\r\n",      48);
-
     /*
-        12345678901234567890123456789012345678901234567890
-                10        20        30        40        50
+         12345678901234567890123456789012345678901234567890
+                 10        20        30        40        50
     */
 
-    io_write(io, (uint8_t *)  "Hello World!\r\n",  14);
-    io_write(io, (uint8_t *)"  type something: ",  18);
+    bg_blue();
+    bg_red();
+    io_write(io, (uint8_t *)  "Hello World!  ",  14);
+    bg_black();
+    // io_write(io, (uint8_t *)  "\r\n",  2);
+    io_write(io, (uint8_t *)"    type something: ",  20);
+    bg_black();
 
     fg_yellow(); // color it!
+
+    fg_white();
 
     while(-1) { // endless loop, read one char, write one char (echo)
         io_read(io,  (uint8_t *)tib, 1); // 1  is length
