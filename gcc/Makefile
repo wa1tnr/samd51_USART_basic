@@ -70,6 +70,7 @@ hal/src/hal_sleep.o \
 atmel_start.o \
 hal/src/hal_atomic.o \
 pins.o \
+examples/warm.o \
 main.o
 
 OBJS_AS_ARGS +=  \
@@ -100,6 +101,7 @@ OBJS_AS_ARGS +=  \
 "atmel_start.o" \
 "hal/src/hal_atomic.o" \
 "pins.o" \
+"examples/warm.o" \
 "main.o"
 
 # List the dependency files
@@ -133,6 +135,7 @@ DEPS_AS_ARGS +=  \
 "hpl/oscctrl/hpl_oscctrl.d" \
 "atmel_start.d" \
 "pins.d" \
+"examples/warm.d" \
 "main.d"
 
 OUTPUT_FILE_NAME :=AtmelStart
