@@ -1,0 +1,10 @@
+Tue Aug 14 20:12:20 UTC 2018
+
+On branch testing-gg-typewriter-
+
+  * main.c  - Brief LED blink intro (was longer)
+
+  * examples/driver_examples.c
+
+    It's a simple typewriter.  Type one char, it echoes
+    that character back to you.
